@@ -6,14 +6,18 @@ module Jekyll
     def initialize(tag_name, text, token)
       super
       @text = text.strip
-      @text = /(\w+\.\w+)(\sid:)?(\w*)/i
+      puts @text
+      @text =~ /(\w+\.\w+)(\shref:)?(\w+\.\w+)/i
+      puts @text
+      puts $1
+      puts $3
       @file_link_name = $1
-      @file_link_href = "Cannot render file_link_tag without href" if $3.empty?
+      @file_link_href = $3
     end
 
     def render(context)
-      if @file_name 
-        "<a href='#{@file_link_href}>#{@file_link_name}</a>"
+      if @file_link_name
+        "<a href='other_files/#{@file_link_href}'>#{@file_link_name}</a>"
       else
         "Error processing input."
       end
@@ -21,4 +25,4 @@ module Jekyll
   end
 end
 
-Liquid::Temolate.register_tag('file_link', Jekyll::ImageTag)
+Liquid::Template.register_tag('filelink', Jekyll::FileLinkTag)
