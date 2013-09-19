@@ -17,7 +17,7 @@ module Jekyll
 
     def render(context)
       if @file_link_name
-        "<a href='other_files/#{@file_link_href}'>#{@file_link_name}</a>"
+        "<a href='/other_files/#{@file_link_href}'>#{@file_link_name}</a>"
       else
         "Error processing input."
       end
